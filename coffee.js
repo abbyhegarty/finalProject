@@ -1,6 +1,9 @@
-var coffeePromise = d3.csv("percentage.csv")
+var pctPromise = d3.csv("percentage.csv")
+var rawPromise = d3.csv("raw.csv")
 
-coffeePromise.then(
+
+/*
+pctPromise.then(
 function(data)
     {
         
@@ -10,3 +13,17 @@ function(err)
     {
         console.long("ERROR",err);
     })
+*/
+
+Promise.all([pctPromise, rawPromise]).then(
+
+function(values)
+    {
+        console.log("works",values);
+        
+    },
+function(err)
+    {
+        console.log("ERROR",err);
+    })
+
