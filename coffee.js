@@ -54,6 +54,18 @@ var setup = function(data)
                     .range([0,width])
                     .paddingInner(.05);
     
+    
+ /*   var xScale = d3.scaleBand()
+                    .domain(d3.range(16, 67))
+                    .range([0, width]);
+    */
+    
+/*  xScale = d3.scaleBand()
+      .range([0, width])
+      .domain(sample.map((s) => s.language))
+      .padding(0.4)
+    */
+    
     var yScale = d3.scaleLinear()
                     .domain([0,160])
                     .range([height,0])
