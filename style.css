@@ -5,6 +5,10 @@ body{
 
 #graph{
     
-   top: 30px;
+    
+    width: 900px;
+    margin-right: auto;
+    margin-left: auto;
+
     
 }
