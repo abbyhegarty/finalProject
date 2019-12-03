@@ -229,4 +229,4 @@ drawLegend(data1,cScale)
 }
 
 
-setup(data1)
+setup(dataOne)
