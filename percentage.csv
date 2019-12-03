@@ -1,4 +1,4 @@
-Beverage,Calories (%),Total Fat (%),Sodium (%),Total Carbohydrate (%),Sugars (%),Caffeine (%)
+Beverage, Calories ,Total Fat ,Sodium ,Total Carbohydrate ,Sugars ,Caffeine 
 Brewed Coffee,0.25,0.14285714,0,3.333333333,0,82.5
 Caffe Latte,9.5,10,1.30434783,56.66666667,45.9459459,37.5
 Caffe Mocha,13,11.4285714,1.08695652,46.66666667,91.8918919,43.75

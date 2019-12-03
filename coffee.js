@@ -4,17 +4,17 @@ var rawPromise = d3.csv("raw.csv")
 
 
 pctPromise.then(
-function(dataOne)
+function(data)
     {
-        
-        console.log("works",dataOne);
+        setup(data);
+        console.log("works",data);
     },
 function(err)
     {
         console.long("ERROR",err);
     });
 
-rawPromise.then(
+/*rawPromise.then(
 function(dataTwo)
     {
         console.log("works",dataTwo);
@@ -22,7 +22,7 @@ function(dataTwo)
   function(err)
     {
         console.log("ERROR",err);
-    });
+    }); */
 
 /*Promise.all([pctPromise, rawPromise]).then(
 
@@ -41,7 +41,7 @@ function(err)
     
 */
 
-var setup = function(data1)
+var setup = function(data)
 {
     
     var screen = {width: 800, height: 500}
@@ -57,11 +57,11 @@ var setup = function(data1)
     
      var xScale = d3.scaleBand()
       .range([0, width])
-      .domain(dataOne.map(function(d) {return (d.Beverage)}))
+      .domain(data.map(function(d) {return (d.Beverage)}))
       .padding(0.4)
      
     var yScale = d3.scaleLinear()
-                    .domain([0,20])
+                    .domain([0,100])
                     .range([height,0])
  
     
@@ -107,7 +107,7 @@ var setup = function(data1)
     //bars 1 calories, hopefully
     d3.select("#bar")
     .selectAll("rect")
-     .data(sampleData)
+     .data(data)
      .enter()
      .append("rect")
      .attr("x", function(d,i)
@@ -131,7 +131,7 @@ var setup = function(data1)
  //bars two tbd
     d3.select("#bar1")
     .selectAll("rect")
-     .data(sampleData)
+     .data(data)
      .enter()
     .append("rect")
      .attr("x", function(d,i)
@@ -166,7 +166,7 @@ var drawLegend = function(sampleData)
 
 var gs = d3.select("#legend")
     .selectAll("g")
-    .data(sampleData)
+    .data(data)
     .enter()
     .append("g")
     .attr("fill",function(d)
@@ -190,43 +190,11 @@ gs.append("text")
          { return d.Beverage })
     .attr("x",15)
     .attr("y",10)
-    .attr("fill",black)
-    
- //kdeans   
-/*var width = 200;
-  var height = 200;
-  var boxWidth = 15;
-  var svg = d3.select(idname)
-              .attr("height", height)
-              .attr("width", width);
-  svg.selectAll("rect")
-     .data(colorData)
-     .enter()
-     .append("rect")
-     .attr("x", function(d,i)
-      { return 25;})
-    .attr("y", function (d, i)
-      { return (i+1)*15 + 10;})
-    .attr("width", boxWidth)
-    .attr("height", boxWidth-3)
-    .attr("fill", function(d)
-      { return d.color;})
-svg.selectAll("text")
-   .data(colorData)
-   .enter()
-   .append("text")
-   .text(function(d)
-      { return d.color;})
-   .attr("x", function(d,i)
-      { return 45})
-   .attr("y", function(d, i)
-      { return (i+1)*15 + 22;})
-   .attr("fill", "black")
-    */
+    //.attr("fill",black)
     
 }
-drawLegend(data1,cScale)
+drawLegend(data,cScale)
 }
 
 
-setup(dataOne)
+//setup(dataOne)
