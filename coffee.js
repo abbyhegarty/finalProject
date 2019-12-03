@@ -6,7 +6,9 @@ var rawPromise = d3.csv("raw.csv")
 pctPromise.then(
 function(data)
     {
+        drawLegend(data);
         setup(data);
+        drawBar(data);
         console.log("works",data);
     },
 function(err)
@@ -97,8 +99,19 @@ var setup = function(data)
       .attr("x", 0-(height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Percentage");   
- 
+      .text("Percentage");  
+    
+
+    drawBar(data,xScale,yScale,cScale)
+
+
+}
+
+
+var drawBar = function(data,xScale,yScale,cScale)
+{
+        
+    
  //maybe some bars? 
   svg.append("g")
     .attr("id", "bar")
@@ -113,10 +126,10 @@ var setup = function(data)
      .attr("x", function(d,i)
       { return i*70 +40;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
     .attr("y", function (d)
-      { return height - yScale(d.Calories);})
+      { return height - d.Calories;})
     .attr("width", 40)
     .attr("height", function (d) 
-         { return  yScale(d.Calories);})
+         { return  d.Calories;})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.run*20;})
@@ -148,9 +161,9 @@ var setup = function(data)
     
    */
     
+    }
 
-
-var drawLegend = function(sampleData)
+var drawLegend = function(data)
 {
  
   var width = 200;
@@ -193,8 +206,9 @@ gs.append("text")
     //.attr("fill",black)
     
 }
-drawLegend(data,cScale)
-}
+
+   
+
 
 
 //setup(dataOne)
