@@ -1,5 +1,5 @@
 body{
-    background-color: 
+    background-color: beige
     
 }
 
@@ -11,4 +11,10 @@ body{
     margin-left: auto;
 
     
+}
+
+h1{
+    
+    
+    text-align: center
 }

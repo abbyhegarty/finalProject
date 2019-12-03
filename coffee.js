@@ -76,7 +76,8 @@ var setup = function(data)
     var yAxis = d3.axisLeft(yScale)
     
 var svg = d3.select("#graph")
-    //.append("svg")
+    .append("svg")
+    .attr("id","graph1")
     .attr("width", screen.width)
     .attr("height", screen.height);
     
@@ -115,7 +116,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     
     var width = screen.width - margins.left - margins.right
     var height = screen.height - margins.top - margins.bottom
-    var svg = d3.select("#graph")
+    var svg = d3.select("#graph1")
     
     var cScale = d3.scaleOrdinal(d3.schemeTableau10)
     
