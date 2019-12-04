@@ -1,5 +1,5 @@
 body{
-    background-color: beige
+    background-color: beige;
     
 }
 
@@ -9,14 +9,14 @@ body{
     width: 900px;
     margin-right: auto;
     margin-left: auto;
-
-    
+background-color: white;
+        
 }
 
 h1{
     
     
-    text-align: center
+    text-align: center;
 }
 
 #legend{
