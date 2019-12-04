@@ -78,8 +78,8 @@ var setup = function(data)
     //axis
     var xAxis = d3.axisBottom(xScale)
     var yAxis = d3.axisLeft(yScale)
-                    .ticks(5)
-                    .tickValues([0,50,100,150,200])
+                  //  .ticks(5)
+                  // .tickValues([0,50,100,150,200])
     
 var svg = d3.select("#graph")
     .append("svg")
@@ -183,11 +183,11 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     .append("rect")
      .attr("x", function(d,i)
       { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
-    .attr("y", function (d)
-      { return height - (d.Fat);})
+    .attr("height", function (d)
+      { return height - yScale(d.Fat);})
     .attr("width", 40)
-    .attr("height", function(d)
-         { return d.Fat;})
+    .attr("y", function(d)
+         { return yScale(d.Fat);})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Fat*20;})
@@ -208,13 +208,13 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     .append("rect")
      .attr("x", function(d,i)
       { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
-    .attr("y", function (d)
-      { return height - (d.Sodium);})
+    .attr("height", function (d)
+      { return height - yScale(d.Sodium);})
     .attr("width", 40)
-    .attr("height", function(d)
+    .attr("y", function(d)
          { 
         console.log(d.Sodium);
-        return (d.Sodium);})
+        return yScale(d.Sodium);})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Sodium*20;})
@@ -233,11 +233,11 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     .append("rect")
      .attr("x", function(d,i)
       { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
-    .attr("y", function (d)
-      { return height - (d.Carbohydrate);})
+    .attr("height", function (d)
+      { return height - yScale(d.Carbohydrate);})
     .attr("width", 40)
-    .attr("height", function(d)
-         {  return (d.Carbohydrate);})
+    .attr("y", function(d)
+         {  return yScale(d.Carbohydrate);})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Carbohydrate*20;})
@@ -282,13 +282,13 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     .append("rect")
      .attr("x", function(d,i)
       { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
-    .attr("y", function (d)
+    .attr("height", function (d)
       { 
          console.log("work pretty please", d.Caffeine);
-         return height - (d.Caffeine);})
+         return height - yScale(d.Caffeine);})
     .attr("width", 40)
-    .attr("height", function(d)
-         {  return (d.Caffeine);})
+    .attr("y", function(d)
+         {  return yScale(d.Caffeine);})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Caffeine*20;})
@@ -386,73 +386,115 @@ var makeButton = function(data)
     .append("button")
     .attr("id","Fat")
     .text("Fat")
-    .on("click", function()
+    /*.on("click", function()
         {
         
         d3.selectAll("#graph")
             .selectAll("#bar2")
        
         .remove()
-    })
+    }) */
+     .on("click", function()
+        {
+        
+        var currentOpacity = d3.selectAll("#bar2").style("opacity")
+     d3.selectAll("#graph")
+            .selectAll("#bar2")
+            .style("opacity", currentOpacity == 1 ? 0:1)
+     })
     
     //sodium button 3
      d3.select("#allButton")
     .append("button")
     .attr("id","Sodium")
     .text("Sodium")
-    .on("click", function()
+  /*  .on("click", function()
         {
         
         d3.selectAll("#graph")
             .selectAll("#bar3")
        
         .remove()
-    })
+    }) */
+    .on("click", function()
+        {
+        
+        var currentOpacity = d3.selectAll("#bar3").style("opacity")
+     d3.selectAll("#graph")
+            .selectAll("#bar3")
+            .style("opacity", currentOpacity == 1 ? 0:1)
+     })
+    
+    
     
     //carbohydrate button 4
      d3.select("#allButton")
     .append("button")
     .attr("id","Carbohydrate")
     .text("Carbohydrate")
-    .on("click", function()
+   /* .on("click", function()
         {
         
         d3.selectAll("#graph")
             .selectAll("#bar4")
        
         .remove()
-    })
+    }) */
     
+    .on("click", function()
+        {
+        
+        var currentOpacity = d3.selectAll("#bar4").style("opacity")
+     d3.selectAll("#graph")
+            .selectAll("#bar4")
+            .style("opacity", currentOpacity == 1 ? 0:1)
+     })
     
     //sugar button 5
      d3.select("#allButton")
     .append("button")
     .attr("id","Sugar")
     .text("Sugar")
-    .on("click", function()
+   /* .on("click", function()
         {
         
         d3.selectAll("#graph")
             .selectAll("#bar5")
        
         .remove()
-    })
+    }) */
+    .on("click", function()
+        {
+        
+        var currentOpacity = d3.selectAll("#bar5").style("opacity")
+     d3.selectAll("#graph")
+            .selectAll("#bar5")
+            .style("opacity", currentOpacity == 1 ? 0:1)
+     })
+    
     
     //caffeine button 6
      d3.select("#allButton")
     .append("button")
     .attr("id","Caffeine")
     .text("Caffeine")
-    .on("click", function()
+   /* .on("click", function()
         {
         
         d3.selectAll("#graph")
             .selectAll("#bar6")
        
         .remove()
-    })
+    }) */
     
-    
+    .on("click", function()
+        {
+        
+        var currentOpacity = d3.selectAll("#bar6").style("opacity")
+     d3.selectAll("#graph")
+            .selectAll("#bar6")
+            .style("opacity", currentOpacity == 1 ? 0:1)
+     })
 } //end of makebutton var
 
 
