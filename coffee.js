@@ -45,13 +45,13 @@ function(err)
 */
 
 var screen = {width: 800, height: 500}
-var margins = {top: 50, bottom: 35, left: 50, right: 25}
+//var margins = {top: 50, bottom: 35, left: 50, right: 25}
   
 
 var setup = function(data)
 {
     
-    
+    var margins = {top: 50, bottom: 35, left: 50, right: 25}
     
     var width = screen.width - margins.left - margins.right
     var height = screen.height - margins.top - margins.bottom
@@ -60,14 +60,17 @@ var setup = function(data)
                     .domain([0,20])
                     .range([0, width])
     
+    
      var xScale = d3.scaleBand()
       .range([0, width])
       .domain(data.map(function(d) {return (d.Beverage)}))
       .padding(0.4)
      
     var yScale = d3.scaleLinear()
-                    .domain([0,100])
+                    .domain([0,height])
+                    //.domain([0, d3.max(data, function(d) {return d[1];})])
                     .range([height,0])
+                    .nice()
  
     
     var cScale = d3.scaleOrdinal(d3.schemeTableau10)
@@ -95,6 +98,7 @@ var svg = d3.select("#graph")
     svg.append("g")
     .attr("id","yAxis")
     .attr("transform","translate(35,"+margins.top+")")
+    //.attr("height",500px)
     .call(yAxis);
     
     svg.append("text")
@@ -148,7 +152,6 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     .attr("height", function (d) 
          { 
         //console.log(parseInt(d.Calories));
-        
         return  d.Calories;})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
@@ -156,7 +159,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     .attr("fill", "teal") 
     //.style("opacity", .50)
     
-  /*
+  
     
   //bars two fat  
      svg.append("g")
@@ -283,7 +286,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
    //   { return d.run*20;})
     .attr("fill", "black")
     .style("opacity", .25) 
-    */
+    
     
 }
 

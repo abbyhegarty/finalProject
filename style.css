@@ -26,12 +26,19 @@ h1{
 }
 
 #Allbutton{
-    margin-right: auto;
-    margin-left: auto;    
+    position: absolute;
+   right: 750px;
+    top: 600px;
+    background-color: red;
 }
 
 #Fat{
     color: blue;
        margin-right: auto;
     margin-left: auto;  
+}
+
+h1{
+    
+    background-color:
 }
