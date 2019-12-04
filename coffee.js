@@ -9,6 +9,7 @@ function(data)
         setup(data);
       drawBar(data);
         drawLegend(data);
+        makeButton(data);
         console.log("Pworks",data);
     },
 function(err)
@@ -142,7 +143,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
         console.log("pls be height", height)
        // console.log("parse",parseInt(d.Calories));
         console.log("normal", d.Calories);
-        return height - d.Calories;})
+        return height - (d.Calories);})
     .attr("width", 40)
     .attr("height", function (d) 
          { 
@@ -153,9 +154,9 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
   //  .attr("height", function(d)
    //   { return d.Calories*20;})
     .attr("fill", "teal") 
-    .style("opacity", .50)
+    //.style("opacity", .50)
     
-    
+  /*
     
   //bars two fat  
      svg.append("g")
@@ -179,8 +180,10 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.run*20;})
-    .attr("fill", "red")
-    .style("opacity", 1)
+    .attr("fill", "black")
+    .style("opacity", .3)
+    
+    
     
     //bar 3 sodium  
      svg.append("g")
@@ -279,15 +282,29 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
   //  .attr("height", function(d)
    //   { return d.run*20;})
     .attr("fill", "black")
-    .style("opacity", .25)
+    .style("opacity", .25) 
+    */
+    
 }
 
-var drawLegend = function(data)
+  
+
+var drawLegend = function(data, cScale)
 {
- 
-  var width = 400;
+  
+    
+ //works, 
+    
+ var dataset = [{name: "Calories"},
+               {name: "Fat"}, 
+               {name: "Sodium"}, 
+               {name: "Carbohydrate"}, 
+               {name: "Sugar"},
+               {name: "Caffeine"} ] 
+    
+  var width = 600;
   var height = 400;
-  var boxWidth = 40; 
+  var boxWidth = 100; 
     
    var cScale = d3.scaleOrdinal(d3.schemeTableau10) 
     
@@ -296,22 +313,23 @@ var drawLegend = function(data)
     .attr("id","legend")
    .attr("width", width)
     .attr("height", height)
-   // .attr("transform","translate(" +(screen.width-margins.right)+"," + (margins.top)+")"); 
+    .attr("transform" , "translate(-60,20)") //where the whole legend is located
+  // .attr("transform","translate("+(screen.width-margins.right)+","+(margins.top)+")"); 
 
 var gs = d3.select("#legend")
     .selectAll("g")
-    .data(data)
+    .data(dataset)
     .enter()
     .append("g")
     .attr("fill",function(d)
-         { return cScale(d.Beverage);})
+         { return cScale(d.name);})
     .attr("transform",function(d,i)
     
     {
           return "translate(700,"+(i*15)+")"; //changing # will space each individual rect + text more
     })
-  .attr("width", boxWidth)
-    .attr("height", boxWidth-3)
+ // .attr("width", boxWidth)
+ //   .attr("height", boxWidth-3)
     
     
 gs.append("rect")
@@ -321,21 +339,112 @@ gs.append("rect")
 
 gs.append("text")
     .text(function(d)
-         { return d.Beverage })
+         { return d.name})
     .attr("x",15)
     .attr("y",10)
     //.attr("fill",black)
-    
 }
 
 var makeButton = function(data)
 {
-    d3.select("div")
-    .data(data)
-    .enter()
-    .append(button)
-    .attr
-}
+//#allButton is a div, creating a button w/ id of Calories inside a div
+    // calorie button 1
+    d3.select("#allButton")
+    .append("button")
+    .attr("id","Calories")
+    .text("Calories")
+    .on("click", function()
+        {
+        
+        var currentOpacity = d3.selectAll("#bar1").style("opacity")
+     d3.selectAll("#graph")
+            .selectAll("#bar1")
+            .style("opacity", currentOpacity == 1 ? 0:1)
+                  
+        
+    //   .exit()
+     //  .remove() 
+        
+       // currentOpacity = d3.selectAll("."+d).style("opacity")
+       // d3.selectAll(".", + d).transition().style("opacity", currentOpacity == 1 ? 0:1)
+        
+    })
+    
+    //fat button 2
+     d3.select("#allButton")
+    .append("button")
+    .attr("id","Fat")
+    .text("Fat")
+    .on("click", function()
+        {
+        
+        d3.selectAll("#graph")
+            .selectAll("#bar2")
+       
+        .remove()
+    })
+    
+    //sodium button 3
+     d3.select("#allButton")
+    .append("button")
+    .attr("id","Sodium")
+    .text("Sodium")
+    .on("click", function()
+        {
+        
+        d3.selectAll("#graph")
+            .selectAll("#bar3")
+       
+        .remove()
+    })
+    
+    //carbohydrate button 4
+     d3.select("#allButton")
+    .append("button")
+    .attr("id","Carbohydrate")
+    .text("Carbohydrate")
+    .on("click", function()
+        {
+        
+        d3.selectAll("#graph")
+            .selectAll("#bar4")
+       
+        .remove()
+    })
+    
+    
+    //sugar button 5
+     d3.select("#allButton")
+    .append("button")
+    .attr("id","Sugar")
+    .text("Sugar")
+    .on("click", function()
+        {
+        
+        d3.selectAll("#graph")
+            .selectAll("#bar5")
+       
+        .remove()
+    })
+    
+    //caffeine button 6
+     d3.select("#allButton")
+    .append("button")
+    .attr("id","Caffeine")
+    .text("Caffeine")
+    .on("click", function()
+        {
+        
+        d3.selectAll("#graph")
+            .selectAll("#bar6")
+       
+        .remove()
+    })
+    
+    
+} //end of makebutton var
+
+
 
 // drawLegend(data)  
 

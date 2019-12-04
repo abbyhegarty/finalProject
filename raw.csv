@@ -1,6 +1,5 @@
-Beverage,Calories,Total Fat (g),Sodium (mg),Total Carbohydrates (g),Sugars (g),Caffeine (mg)
+Beverage,Calories,Fat,Sodium,Carbohydrates,Sugars,Caffeine
 Brewed Coffee,5,0.1,0,10,0,330
 Caffe Latte,190,7,30,170,17,150
-Caffe Mocha (Without Whipped Cream),260,8,25,140,34,175
-Skinny Latte (Any Flavour),120,0.3,5,160,16,150
-Caramel Frappuccino® Blended Coffee (Without Whipped Cream),280,3.5,10,220,59,100
+Caffe Mocha,260,8,25,140,34,175
+Caramel Frappuccino,280,3.5,10,220,59,100
