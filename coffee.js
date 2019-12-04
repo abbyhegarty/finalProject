@@ -2,12 +2,11 @@ var pctPromise = d3.csv("percentage.csv")
 var rawPromise = d3.csv("raw.csv")
 
 
-
 pctPromise.then(
 function(data)
     {
         setup(data);
-      drawBar(data);
+      
         drawLegend(data);
         makeButton(data);
         console.log("Pworks",data);
@@ -67,10 +66,11 @@ var setup = function(data)
       .padding(0.4)
      
     var yScale = d3.scaleLinear()
-                    .domain([0,height])
+                    .domain([0,160])
                     //.domain([0, d3.max(data, function(d) {return d[1];})])
                     .range([height,0])
-                    .nice()
+                   // .tick
+                  //  .nice()
  
     
     var cScale = d3.scaleOrdinal(d3.schemeTableau10)
@@ -78,6 +78,8 @@ var setup = function(data)
     //axis
     var xAxis = d3.axisBottom(xScale)
     var yAxis = d3.axisLeft(yScale)
+                    .ticks(5)
+                    .tickValues([0,50,100,150,200])
     
 var svg = d3.select("#graph")
     .append("svg")
@@ -109,7 +111,7 @@ var svg = d3.select("#graph")
       .style("text-anchor", "middle")
       .text("Percentage");  
     
-//drawBar(data,xScale,yScale,cScale);
+drawBar(data,xScale,yScale,cScale);
     
 }
 
@@ -142,17 +144,23 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
       { return i*165
           +95
        ;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
-    .attr("y", function (d)
+  /*  .attr("y", function (d)
       { 
         console.log("pls be height", height)
        // console.log("parse",parseInt(d.Calories));
         console.log("normal", d.Calories);
-        return height - (d.Calories);})
+        return height - (d.Calories);}) */
+    .attr("height",function(d)
+          {
+          
+      //  return height - (d.Calories);
+        return height -(yScale(d.Calories));
+          })
     .attr("width", 40)
-    .attr("height", function (d) 
+    .attr("y", function (d) 
          { 
         //console.log(parseInt(d.Calories));
-        return  d.Calories;})
+        return  yScale(d.Calories);})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Calories*20;})
@@ -182,7 +190,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
          { return d.Fat;})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
-   //   { return d.run*20;})
+   //   { return d.Fat*20;})
     .attr("fill", "black")
     .style("opacity", .3)
     
@@ -209,7 +217,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
         return (d.Sodium);})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
-   //   { return d.run*20;})
+   //   { return d.Sodium*20;})
     .attr("fill", "blue")
     //.style("opacity", .1)
     
@@ -232,7 +240,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
          {  return (d.Carbohydrate);})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
-   //   { return d.run*20;})
+   //   { return d.Carbohydrate*20;})
     .attr("fill", "yellow")
     .style("opacity", .25)
     
@@ -249,14 +257,14 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     .append("rect")
      .attr("x", function(d,i)
       { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
-    .attr("y", function (d)
-      { return height - (d.Sugar);})
+    .attr("height", function (d)
+      { return height - yScale(d.Sugar);})
     .attr("width", 40)
-    .attr("height", function(d)
-         {  return (d.Sugar);})
+    .attr("y", function(d)
+         {  return yScale(d.Sugar);})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
-   //   { return d.run*20;})
+   //   { return d.Sugar*20;})
     .attr("fill", "green")
     .style("opacity", .25)
     
@@ -283,7 +291,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
          {  return (d.Caffeine);})
    // .attr("width", barWidth)
   //  .attr("height", function(d)
-   //   { return d.run*20;})
+   //   { return d.Caffeine*20;})
     .attr("fill", "black")
     .style("opacity", .25) 
     
