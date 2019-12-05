@@ -50,7 +50,7 @@ var screen = {width: 800, height: 500}
 var setup = function(data)
 {
     
-    var margins = {top: 50, bottom: 35, left: 50, right: 25}
+    var margins = {top: 50, bottom: 35, left: 55, right: 50}
     
     var width = screen.width - margins.left - margins.right
     var height = screen.height - margins.top - margins.bottom
@@ -73,7 +73,7 @@ var setup = function(data)
                   //  .nice()
  
     
-    var cScale = d3.scaleOrdinal(d3.schemeTableau10)
+    var cScale = d3.scaleOrdinal(d3.schemeSet1)
     
     //axis
     var xAxis = d3.axisBottom(xScale)
@@ -93,13 +93,13 @@ var svg = d3.select("#graph")
     .call(xAxis)
     
     svg.append("text")
-    .attr("transform", "translate("+ (width/2)+","+(height+margins.top+30)+")")
+    .attr("transform", "translate(400,"+(height+margins.top+32)+")")
     .style("text-anchor", "middle")
     .text("Drinks")
     
     svg.append("g")
     .attr("id","yAxis")
-    .attr("transform","translate(35,"+margins.top+")")
+    .attr("transform","translate(50,"+margins.top+")")
     //.attr("height",500px)
     .call(yAxis);
     
@@ -109,7 +109,7 @@ var svg = d3.select("#graph")
       .attr("x", 0-(height / 2))
      .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Percentage");  
+      .text("Percentage of Daily Recommendation");  
     
 drawBar(data,xScale,yScale,cScale);
     
@@ -125,7 +125,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     var height = screen.height - margins.top - margins.bottom
     var svg = d3.select("#graph1")
     
-    var cScale = d3.scaleOrdinal(d3.schemeTableau10)
+    var cScale = d3.scaleOrdinal(d3.schemeSet1)
     
 //bars 1 calories, hopefully
     
@@ -135,13 +135,14 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
     .attr("transform", "translate("+margins.left+","+margins.top+")");
     console.log("please work",data);
     
-    d3.select("#bar1")
+   var bar1 = d3.select("#bar1")
     .selectAll("rect")
      .data(data)
      .enter()
      .append("rect")
+
      .attr("x", function(d,i)
-      { return i*165
+      { return i*158
           +95
        ;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
   /*  .attr("y", function (d)
@@ -164,8 +165,31 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Calories*20;})
-    .attr("fill", "teal") 
-    //.style("opacity", .50)
+    .attr("fill", "#377eb8") 
+    .style("opacity", .7)
+    
+   .append("title")
+   .text(function(d) {return d.Calories;})
+   
+    .on("mouseover", function(d) 
+        {
+      d3.select("#tooltip")
+        
+        .style("left", (d3.event.pageX + 20) + "px")
+        .style("top", (d3.event.pageY) + "py")
+       // .select("#name")
+        g.append("text")
+        
+        .append("text")
+        console.log(d.Calories)
+        .text(function(d){ return "work" + d.Calorie})
+      d3.select("#tooltip").classed("hidden",false)
+    })
+    .on("mouseout", function()
+       {
+        d3.select("#tooltip")
+        .classed("hidden",true)
+    })
     
   
     
@@ -182,7 +206,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
      .enter()
     .append("rect")
      .attr("x", function(d,i)
-      { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
+      { return i*158 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
     .attr("height", function (d)
       { return height - yScale(d.Fat);})
     .attr("width", 40)
@@ -191,7 +215,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Fat*20;})
-    .attr("fill", "black")
+    .attr("fill", "#e41a1c")
     .style("opacity", .3)
     
     
@@ -207,7 +231,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
      .enter()
     .append("rect")
      .attr("x", function(d,i)
-      { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
+      { return i*158 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
     .attr("height", function (d)
       { return height - yScale(d.Sodium);})
     .attr("width", 40)
@@ -218,8 +242,8 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Sodium*20;})
-    .attr("fill", "blue")
-    //.style("opacity", .1)
+    .attr("fill", "#4daf4a")
+    .style("opacity", 1)
     
        //bar 4 carb  
      svg.append("g")
@@ -232,7 +256,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
      .enter()
     .append("rect")
      .attr("x", function(d,i)
-      { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
+      { return i*158 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
     .attr("height", function (d)
       { return height - yScale(d.Carbohydrate);})
     .attr("width", 40)
@@ -241,8 +265,8 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Carbohydrate*20;})
-    .attr("fill", "yellow")
-    .style("opacity", .25)
+    .attr("fill", "#984ea3")
+    .style("opacity", .5)
     
     //bar 5 sugar
     
@@ -256,7 +280,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
      .enter()
     .append("rect")
      .attr("x", function(d,i)
-      { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
+      { return i*158 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
     .attr("height", function (d)
       { return height - yScale(d.Sugar);})
     .attr("width", 40)
@@ -265,8 +289,8 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Sugar*20;})
-    .attr("fill", "green")
-    .style("opacity", .25)
+    .attr("fill", "#ffff33")
+   .style("opacity", .4)
     
     
      //bar 6 caffeine
@@ -281,7 +305,7 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
      .enter()
     .append("rect")
      .attr("x", function(d,i)
-      { return i*165 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
+      { return i*158 +95;}) //more than 20, match to my x scale or whatev, 70 to space, 40 moves it out 
     .attr("height", function (d)
       { 
          console.log("work pretty please", d.Caffeine);
@@ -292,8 +316,8 @@ var margins = {top: 50, bottom: 35, left: 50, right: 25}
    // .attr("width", barWidth)
   //  .attr("height", function(d)
    //   { return d.Caffeine*20;})
-    .attr("fill", "black")
-    .style("opacity", .25) 
+    .attr("fill", "#188FA7")
+    .style("opacity", .5) 
     
     
 }
@@ -306,18 +330,18 @@ var drawLegend = function(data, cScale)
     
  //works, 
     
- var dataset = [{name: "Calories"},
-               {name: "Fat"}, 
-               {name: "Sodium"}, 
-               {name: "Carbohydrate"}, 
-               {name: "Sugar"},
-               {name: "Caffeine"} ] 
+ var dataset = [{name: "Calories", color: "#76A5CE"},
+               {name: "Fat", color: "#FAC1BE"}, 
+               {name: "Sodium", color: "#4daf4a"}, 
+               {name: "Carbohydrate", color: "#CDA8D2"}, 
+               {name: "Sugar", color: "#FEFFB8"},
+               {name: "Caffeine", color: "#96C8D4"} ] 
     
   var width = 600;
   var height = 400;
   var boxWidth = 100; 
     
-   var cScale = d3.scaleOrdinal(d3.schemeTableau10) 
+   var cScale = d3.scaleOrdinal(d3.schemeSet1) 
     
   d3.select("svg")
     .append("g")
@@ -333,7 +357,7 @@ var gs = d3.select("#legend")
     .enter()
     .append("g")
     .attr("fill",function(d)
-         { return cScale(d.name);})
+         { return (d.color);})
     .attr("transform",function(d,i)
     
     {
@@ -344,8 +368,8 @@ var gs = d3.select("#legend")
     
     
 gs.append("rect")
-    .attr("width",10) //size of rectangles
-    .attr("height",10)
+    .attr("width",15) //size of rectangles
+    .attr("height",12)
    
 
 gs.append("text")
@@ -353,7 +377,10 @@ gs.append("text")
          { return d.name})
     .attr("x",15)
     .attr("y",10)
-    //.attr("fill",black)
+   .attr("fill", "black")
+         
+         //function(d)
+     //    { return (d.color);})
 }
 
 var makeButton = function(data)
